@@ -1,52 +1,25 @@
 import java.util.Set;
 
-public class Pokemon{
-    private String nome;
-    private int nivel;
-    private int xp;
-    private double vida;
-    private double ataque;
-    private double defesa;
+public class Pokemon extends Criatura {
     private Set<Tipo> tipos;
 
     public Pokemon(String nome, int nivel, int xp, double vida, double ataque, double defesa, Set<Tipo> tipos) {
-        this.nome = nome;
-        this.nivel = nivel;
-        this.xp = xp;
-        this.vida = vida;
-        this.ataque = ataque;
-        this.defesa = defesa;
+        super(nome, nivel, xp, vida, ataque, defesa);
         this.tipos = tipos;
+    }
+
+    @Override
+    public void atacar(Criatura alvo) {
+        if (!(alvo instanceof Pokemon alvoPokemon)) return;
+
+        double efetividade = Tipo.calcularEfetividade(this.tipos, alvoPokemon.getTipos());
+        double dano = this.getAtaque() * efetividade;
+        alvo.receberDano(dano);
+
+        System.out.println(this.getNome()+ " atacou " + alvo.getNome() + " causando " + dano + " de dano!");
     }
 
     public Set<Tipo> getTipos() {
         return tipos;
-    }
-
-    public double getAtaque() {
-        return ataque;
-    }
-
-    public double getVida() {
-        return vida;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public double atacar(Pokemon alvo, double ataque) {
-        double efetividade = Tipo.calcularEfetividade(this.tipos, alvo.getTipos());
-        System.out.println(efetividade); // teste saida
-        double dano = ataque * efetividade;
-        alvo.receberDano(dano);
-        return dano;
-    }
-
-    public void receberDano(double dano) {
-        this.vida -= dano;
-        if (this.vida < 0) {
-            this.vida = 0;
-        }
     }
 }

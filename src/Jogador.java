@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Jogador {
     private String nome;
-    private ArrayList<Pokemon> pokemonJogador;
+    private ArrayList<Criatura> pokemonJogador;
 
-    public Jogador(String nome, ArrayList<Pokemon> pokemonJogador) {
+    public Jogador(String nome, ArrayList<Criatura> pokemonJogador) {
         this.nome = nome;
         this.pokemonJogador = pokemonJogador;
     }
@@ -13,7 +13,7 @@ public class Jogador {
         return nome;
     }
 
-    public ArrayList<Pokemon> getPokemonJogador() {
+    public ArrayList<Criatura> getPokemonJogador() {
         return pokemonJogador;
     }
 }

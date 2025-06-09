@@ -35,7 +35,7 @@ public class Pokemon extends Criatura {
             }
         }
         alvo.receberDano(dano);
-        System.out.println(this.getNome() + " atacou " + alvo.getNome() + " causando " + dano + " de dano!");
+        System.out.printf("%s atacou %s causando %.2f de dano!\n", this.getNome(), alvo.getNome(), dano);
     }
 
     public void ganharXp(Pokemon inimigoDerrotado) {
@@ -79,6 +79,10 @@ public class Pokemon extends Criatura {
 
     @Override
     public String toString() {
-        return nome + vida + ataque + defesa;
+        return String.format(
+                "Nome: %s | Nível: %d | Vida: %.2f/%.2f | Ataque: %.2f | Defesa: %.2f | Tipos: %s",
+                nome, nivel, vida, vidaTotal, ataque, defesa, tipos
+        );
     }
+
 }

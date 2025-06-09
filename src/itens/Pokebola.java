@@ -47,4 +47,13 @@ public class Pokebola {
     public double getTaxaCaptura() {
         return taxaCaptura;
     }
+
+    @Override
+    public String toString() {
+        if (pokemonCapturado == null) {
+            return tipo + " (vazia)";
+        } else {
+            return tipo + " (contém: " + pokemonCapturado.getNome() + ")";
+        }
+    }
 }

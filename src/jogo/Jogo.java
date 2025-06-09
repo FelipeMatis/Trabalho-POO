@@ -14,6 +14,9 @@ public class Jogo {
     private ArrayList<Pokemon> pokemons;
     private ArrayList<Pokemon> pokemonsJogador;
     private ArrayList<Pokebola> pokebolasJogador;
+    private ArrayList<Pokebola> pokebolasCompra;
+    private ArrayList<Pocao> pocoesCompra;
+    private ArrayList<Pokemon> pokemonsCompra;
     private Scanner scanner;
 
     public Jogo() {
@@ -22,6 +25,9 @@ public class Jogo {
         pokemons = new ArrayList<>();
         pokemonsJogador = new ArrayList<>();
         pokebolasJogador = new ArrayList<>();
+        pokebolasCompra = new ArrayList<>();
+        pocoesCompra = new ArrayList<>();
+        pokemonsCompra = new ArrayList<>();
         inicializarPokemons();
     }
 
@@ -42,7 +48,7 @@ public class Jogo {
             System.out.println();
         }
 
-        int escolha = escolherPokemon(); // já está correto
+        int escolha = escolherPokemon();
         pokemonsJogador.add(opcoes.get(escolha - 1));
         int indicePJogador = 0;
 
@@ -54,6 +60,18 @@ public class Jogo {
         while (!jogador.verificaSePerdeu()) {
             if (indicePInimigo >= pokemons.size()) {
                 System.out.println("Parabéns! Você derrotou todos os Pokémons inimigos!");
+                break;
+            }
+
+            Pokemon inimigo = pokemons.get(indicePInimigo);
+            Pokemon meuPokemon = pokemonsJogador.get(indicePJogador);
+
+            int escolhaMenu = 0;
+            while (escolhaMenu != 1) {
+                escolhaMenu = mostrarMenu(scanner);
+                usaMenu(escolhaMenu, meuPokemon, inimigo, jogador, scanner, pokemonsCompra, pokebolasCompra, pocoesCompra);
+            }
+            if (jogador.verificaSePerdeu()) {
                 break;
             }
 
@@ -74,12 +92,12 @@ public class Jogo {
                         System.out.print("Digite o número do Pokémon: ");
 
                         if (!scanner.hasNextInt()) {
-                            scanner.nextLine(); // limpar linha inválida
+                            scanner.nextLine();
                             throw new EscolhaInvalidaException("Entrada inválida. Digite um número.");
                         }
 
                         int escolhaPokemon = scanner.nextInt();
-                        scanner.nextLine(); // ← ESSENCIAL: limpa a quebra de linha
+                        scanner.nextLine();
 
                         if (escolhaPokemon < 1 || escolhaPokemon > pokemonsJogador.size()) {
                             throw new EscolhaInvalidaException("Escolha fora do intervalo.");
@@ -98,10 +116,7 @@ public class Jogo {
                 }
             }
 
-            Pokemon inimigo = pokemons.get(indicePInimigo);
-            Pokemon meuPokemon = pokemonsJogador.get(indicePJogador);
-
-            Batalha.batalhar(meuPokemon, inimigo, jogador);
+            jogador.adicionarDinheiro(fase*50);
 
             indicePInimigo++;
             fase++;
@@ -130,7 +145,25 @@ public class Jogo {
 
         // pokebola de inicio
         pokebolasJogador.add(new Pokebola("Master Ball", 1.0));
-        pokebolasJogador.add(new Pokebola("Pokebola", 0.3));
+        pokebolasJogador.add(new Pokebola("Pokebola", 0.5));
+
+        // pokebolas para comprar
+        pokebolasCompra.add(new Pokebola("Pokebola comum", 0.2));
+        pokebolasCompra.add(new Pokebola("Ultra ball", 0.5));
+        pokebolasCompra.add(new Pokebola("Master ball", 1));
+
+        // pocoes para comprar
+        pocoesCompra.add(new Pocao("Força 2x", "Ataques causam x2 de dano por 3 turnos"));
+        pocoesCompra.add(new Pocao("Vida", "Recupera 40% do HP"));
+        pocoesCompra.add(new Pocao("Subiir nível", "Aumenta o nível do pokemon\n" +
+                "Essa poção enche a vida do pokémon*"));
+
+        // pokemons para comprar
+        // por enquanto apenas testes!
+        pokemonsCompra.add(new Pokemon("Garchomp", 1, 0, 108, 108,130, 102, Set.of(Tipo.DRAGAO, Tipo.TERRA)));
+        pokemonsCompra.add(new Pokemon("Salamence", 1, 0, 95, 95,135, 100, Set.of(Tipo.DRAGAO, Tipo.VOADOR)));
+        pokemonsCompra.add(new Pokemon("Mewtwo", 1, 0, 106, 106,110, 130, Set.of(Tipo.PSIQUICO)));
+
     }
 
     private String obterNomeJogador() {
@@ -183,4 +216,64 @@ public class Jogo {
 
         return escolha;
     }
+
+    public static int mostrarMenu(Scanner scanner) {
+        int escolha = -1;
+
+        while (true) {
+            try {
+                System.out.println("Escolha uma opção:");
+                System.out.println("1 - Batalhar");
+                System.out.println("2 - Loja");
+                System.out.println("3 - Meus Pokémons");
+                System.out.println("4 - Minhas Pokébolas");
+                System.out.println("5 - Desistir");
+                System.out.print("Digite sua escolha: ");
+
+                escolha = scanner.nextInt();
+
+                if (escolha >= 1 && escolha <= 5) {
+                    break;
+                } else {
+                    System.out.println("Opção inválida! Digite um número entre 1 e 5.");
+                }
+            } catch (EscolhaInvalidaException e) {
+                System.out.println("Entrada inválida! Por favor, digite um número inteiro.");
+                scanner.nextLine();
+            }
+        }
+
+        return escolha;
+    }
+
+    public static void usaMenu(int escolha, Pokemon meuPokemon, Pokemon inimigo, Jogador jogador, Scanner scanner, ArrayList<Pokemon> pokemonsCompra, ArrayList<Pokebola> pokebolasCompra, ArrayList<Pocao> pocoesCompra) {
+        switch (escolha) {
+            case 1:
+                System.out.println("Você escolheu: Batalhar\n");
+                Batalha.batalhar(meuPokemon, inimigo, jogador);
+                break;
+            case 2:
+                System.out.println("Você escolheu: Loja\n");
+                Loja loja = new Loja();
+                int escolhaLoja = loja.mostrarMenu(scanner);
+                loja.usaMenu(escolhaLoja, jogador, scanner, pokemonsCompra, pokebolasCompra, pocoesCompra);
+
+                break;
+            case 3:
+                System.out.println("Você escolheu: Meus Pokémons\n");
+                System.out.println(jogador.getPokemonsJogador());
+                break;
+            case 4:
+                System.out.println("Você escolheu: Minhas Pokébolas\n");
+                System.out.println(jogador.getPokebolaJogador());
+                break;
+            case 5:
+                System.out.println("Que pena! Fechando o programa...");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Opção inválida.");
+        }
+    }
+
 }

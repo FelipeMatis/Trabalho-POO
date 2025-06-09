@@ -15,8 +15,7 @@ public class Batalha {
         System.out.println(pokemonJogador.getNome() + " vs " + inimigo.getNome());
         System.out.println();
 
-        mostrarStats(pokemonJogador);
-        mostrarStats(inimigo);
+        mostrarStats(pokemonJogador, inimigo);
 
         boolean verifica = false; // só pode tentar 1 vez
         while (!jogador.verificaSePerdeu() && !inimigo.verificaSePerdeu()) {
@@ -61,7 +60,6 @@ public class Batalha {
                 if (jogador.trocarParaProximoPokemonVivo()) {
                     pokemonJogador = jogador.getPokemonAtivo();
                     System.out.println("Você trocou para " + pokemonJogador.getNome() + "!");
-                    mostrarStats(pokemonJogador);
                 } else {
                     System.out.println("Você não tem mais Pokémons vivos!");
                     break;
@@ -79,13 +77,15 @@ public class Batalha {
         System.out.println();
     }
 
-    public static void mostrarStats(Pokemon p) {
-        System.out.println("Nome: " + p.getNome());
-        System.out.println("Nível: " + p.getNivel());
-        System.out.println("Vida: " + p.getVida());
-        System.out.println("Ataque: " + p.getAtaque());
-        System.out.println("Defesa: " + p.getDefesa());
-        System.out.println("Tipos: " + p.getTipos());
-        System.out.println();
+    public static void mostrarStats(Pokemon p, Pokemon inimigo) {
+        System.out.println("---------------------------------------------------------------");
+        System.out.printf("%-20s VS %-20s%n", p.getNome(), inimigo.getNome());
+        System.out.println("---------------------------------------------------------------");
+        System.out.printf("%-10s: %-15d VS %-15d%n", "Nível", p.getNivel(), inimigo.getNivel());
+        System.out.printf("%-10s: %-15.2f VS %-15.2f%n", "Vida", p.getVida(), inimigo.getVida());
+        System.out.printf("%-10s: %-15.2f VS %-15.2f%n", "Ataque", p.getAtaque(), inimigo.getAtaque());
+        System.out.printf("%-10s: %-15.2f VS %-15.2f%n", "Defesa", p.getDefesa(), inimigo.getDefesa());
+        System.out.printf("%-10s: %-15s VS %-15s%n", "Tipos", p.getTipos().toString(), inimigo.getTipos().toString());
+        System.out.println("---------------------------------------------------------------\n");
     }
 }

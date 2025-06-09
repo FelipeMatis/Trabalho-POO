@@ -9,12 +9,14 @@ public class Jogador {
     private ArrayList<Pokemon> pokemonsJogador;
     private ArrayList<Pokebola> pokebolaJogador;
     private int indicePokemonComVida;
+    private int moedas;
 
     public Jogador(String nome, ArrayList<Pokemon> pokemonJogador, ArrayList<Pokebola> pokebolaJogador) {
         this.nome = nome;
         this.pokemonsJogador = pokemonJogador;
         this.pokebolaJogador = pokebolaJogador;
         this.indicePokemonComVida = 0;
+        this.moedas = 0;
     }
 
     public String getNome() {
@@ -128,6 +130,12 @@ public class Jogador {
         }
         return false;
     }
+
+    public void adicionarDinheiro(int moedas) {
+        this.moedas += moedas;
+        System.out.printf("Você recebeu %s moedas\nTotal: %s\n\n", moedas, this.moedas);
+    }
+
 
     public int getIndicePokemonComVida() {
         return indicePokemonComVida;

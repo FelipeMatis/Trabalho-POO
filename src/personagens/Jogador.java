@@ -8,13 +8,15 @@ public class Jogador {
     private String nome;
     private ArrayList<Pokemon> pokemonsJogador;
     private ArrayList<Pokebola> pokebolaJogador;
+    private ArrayList<Pocao> pocaoJogador;
     private int indicePokemonComVida;
     private int moedas;
 
-    public Jogador(String nome, ArrayList<Pokemon> pokemonJogador, ArrayList<Pokebola> pokebolaJogador) {
+    public Jogador(String nome, ArrayList<Pokemon> pokemonJogador, ArrayList<Pokebola> pokebolaJogador, ArrayList<Pocao> pocaoJogador) {
         this.nome = nome;
         this.pokemonsJogador = pokemonJogador;
         this.pokebolaJogador = pokebolaJogador;
+        this.pocaoJogador = pocaoJogador;
         this.indicePokemonComVida = 0;
         this.moedas = 0;
     }
@@ -106,6 +108,14 @@ public class Jogador {
         pokemonsJogador.add(p);
     }
 
+    public void adicionarPocao(Pocao p) {
+        pocaoJogador.add(p);
+    }
+
+    public void adicionarPokebola(Pokebola p) {
+        pokebolaJogador.add(p);
+    }
+
     public void removerPokemon(int indice) {
         pokemonsJogador.remove(indice);
     }
@@ -134,6 +144,14 @@ public class Jogador {
     public void adicionarDinheiro(int moedas) {
         this.moedas += moedas;
         System.out.printf("Você recebeu %s moedas\nTotal: %s\n\n", moedas, this.moedas);
+    }
+
+    public void removerDinheiro(int moedas) {
+        this.moedas -= moedas;
+    }
+
+    public int getMoedas() {
+        return moedas;
     }
 
 

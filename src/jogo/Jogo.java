@@ -14,6 +14,7 @@ public class Jogo {
     private ArrayList<Pokemon> pokemons;
     private ArrayList<Pokemon> pokemonsJogador;
     private ArrayList<Pokebola> pokebolasJogador;
+    private ArrayList<Pocao> pocoesJogador;
     private ArrayList<Pokebola> pokebolasCompra;
     private ArrayList<Pocao> pocoesCompra;
     private ArrayList<Pokemon> pokemonsCompra;
@@ -25,6 +26,7 @@ public class Jogo {
         pokemons = new ArrayList<>();
         pokemonsJogador = new ArrayList<>();
         pokebolasJogador = new ArrayList<>();
+        pocoesJogador = new ArrayList<>();
         pokebolasCompra = new ArrayList<>();
         pocoesCompra = new ArrayList<>();
         pokemonsCompra = new ArrayList<>();
@@ -33,7 +35,7 @@ public class Jogo {
 
     public void iniciar() {
         String nomeJogador = obterNomeJogador();
-        Jogador jogador = new Jogador(nomeJogador, pokemonsJogador, pokebolasJogador);
+        Jogador jogador = new Jogador(nomeJogador, pokemonsJogador, pokebolasJogador, pocoesJogador);
 
         System.out.println("Escolha seu Pokémon:");
 
@@ -57,6 +59,7 @@ public class Jogo {
         int fase = 1;
         int indicePInimigo = 0;
 
+        jogador.adicionarDinheiro(1000); // testando loja
         while (!jogador.verificaSePerdeu()) {
             if (indicePInimigo >= pokemons.size()) {
                 System.out.println("Parabéns! Você derrotou todos os Pokémons inimigos!");
@@ -144,19 +147,23 @@ public class Jogo {
         pokemons.add(new Pokemon("Mewtwo", 1, 0, 106, 106,110, 130, Set.of(Tipo.PSIQUICO)));
 
         // pokebola de inicio
-        pokebolasJogador.add(new Pokebola("Master Ball", 1.0));
-        pokebolasJogador.add(new Pokebola("Pokebola", 0.5));
+        pokebolasJogador.add(new Pokebola("Master Ball", 1.0, 200));
+        pokebolasJogador.add(new Pokebola("Pokebola", 0.5, 50));
+
+        // poções de inicio
+        pocoesJogador.add(new Pocao("Subiir nível", "Aumenta o nível do pokemon\n" +
+                "Essa poção enche a vida do pokémon*", 125));
 
         // pokebolas para comprar
-        pokebolasCompra.add(new Pokebola("Pokebola comum", 0.2));
-        pokebolasCompra.add(new Pokebola("Ultra ball", 0.5));
-        pokebolasCompra.add(new Pokebola("Master ball", 1));
+        pokebolasCompra.add(new Pokebola("Pokebola comum", 0.2, 30));
+        pokebolasCompra.add(new Pokebola("Ultra ball", 0.5, 50));
+        pokebolasCompra.add(new Pokebola("Master ball", 1, 150));
 
         // pocoes para comprar
-        pocoesCompra.add(new Pocao("Força 2x", "Ataques causam x2 de dano por 3 turnos"));
-        pocoesCompra.add(new Pocao("Vida", "Recupera 40% do HP"));
+        pocoesCompra.add(new Pocao("Força 2x", "Ataques causam x2 de dano por 3 turnos", 50));
+        pocoesCompra.add(new Pocao("Vida", "Recupera 40% do HP", 35));
         pocoesCompra.add(new Pocao("Subiir nível", "Aumenta o nível do pokemon\n" +
-                "Essa poção enche a vida do pokémon*"));
+                "Essa poção enche a vida do pokémon*", 125));
 
         // pokemons para comprar
         // por enquanto apenas testes!
@@ -255,8 +262,12 @@ public class Jogo {
             case 2:
                 System.out.println("Você escolheu: Loja\n");
                 Loja loja = new Loja();
-                int escolhaLoja = loja.mostrarMenu(scanner);
-                loja.usaMenu(escolhaLoja, jogador, scanner, pokemonsCompra, pokebolasCompra, pocoesCompra);
+                int escolhaLoja = -1;
+                while (escolhaLoja != 4) {
+                    escolhaLoja = loja.mostrarMenu(scanner);
+                    loja.usaMenu(escolhaLoja, jogador, scanner, pokemonsCompra, pokebolasCompra, pocoesCompra);
+
+                }
 
                 break;
             case 3:

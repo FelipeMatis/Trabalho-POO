@@ -8,11 +8,13 @@ public class Pokebola {
     private String tipo;
     private Pokemon pokemonCapturado;
     private double taxaCaptura;
+    private int preco;
 
-    public Pokebola(String tipo, double taxaCaptura) {
+    public Pokebola(String tipo, double taxaCaptura, int preco) {
         this.tipo = tipo;
         this.taxaCaptura = taxaCaptura;
         this.pokemonCapturado = null;
+        this.preco = preco;
     }
 
     public boolean capturar(Pokemon pokemon, ArrayList<Pokemon> jogadorLista) {
@@ -42,6 +44,10 @@ public class Pokebola {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public int getPreco() {
+        return preco;
     }
 
     public double getTaxaCaptura() {

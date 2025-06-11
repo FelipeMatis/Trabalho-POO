@@ -1,6 +1,5 @@
 package itens;
 
-import exceptions.EscolhaInvalidaException;
 import personagens.Jogador;
 import personagens.Pokemon;
 
@@ -8,19 +7,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Loja {
-
     public  int mostrarMenu(Scanner scanner) {
-        int escolha = -1;
+        int escolha;
 
         while (true) {
             try {
-                System.out.println("1 - Pokebolas\n2 - Poções\n3 - Pokemons");
+                System.out.println("1 - Pokebolas\n2 - Poções\n3 - Pokemons\n4 - Sair");
                 System.out.print("Digite sua escolha: ");
 
                 escolha = scanner.nextInt();
                 scanner.nextLine();
 
-                if (escolha >= 1 && escolha <= 3) {
+                if (escolha >= 1 && escolha <= 4) {
                     break;
                 } else {
                     System.out.println("Opção inválida! Digite um número entre 1 e 3.");
@@ -34,7 +32,8 @@ public class Loja {
         return escolha;
     }
 
-    public static void usaMenu(int escolha, Jogador jogador, Scanner scanner, ArrayList<Pokemon> pokemonCompra, ArrayList<Pokebola> pokebolaCompra, ArrayList<Pocao> pocoesCompra) {
+    public void usaMenu(int escolha, Jogador jogador, Scanner scanner, ArrayList<Pokemon> pokemonCompra, ArrayList<Pokebola> pokebolaCompra, ArrayList<Pocao> pocoesCompra) {
+        System.out.println("Saldo: " + jogador.getMoedas());
         switch (escolha) {
             case 1:
                 System.out.println("Pokebolas:");
@@ -59,10 +58,10 @@ public class Loja {
 
             System.out.println("---------------------------------------------------------------");
             System.out.println("Exibindo Pokebola " + (indice + 1) + " de " + pokebolaCompra.size());
-            System.out.println("Tipo: " + p.getTipo() + " Taxa de Captura: " + p.getTaxaCaptura());
+            System.out.println("Tipo: " + p.getTipo() + " Taxa de Captura: " + p.getTaxaCaptura() + "Preço: " + p.getPreco());
             System.out.println("---------------------------------------------------------------");
 
-            System.out.println("[P] Próximo | [A] Anterior | [S] Sair");
+            System.out.println("[P] Próximo | [A] Anterior | [E] Escolher | [S] Sair");
             String opcao = scanner.nextLine().trim().toUpperCase();
 
             switch (opcao) {
@@ -83,6 +82,18 @@ public class Loja {
                 case "S":
                     System.out.println("Saindo do menu de Pokebolas.");
                     return;
+                case "E":
+                    if (jogador.getMoedas() < p.getPreco()) {
+                        System.out.println("Moedas insuficientes!");
+                        continue;
+                    }
+                    else {
+                        System.out.println("Você escolheu a Pokebola: " + p.getTipo());
+                        jogador.adicionarPokebola(p);
+                        jogador.removerDinheiro(p.getPreco());
+                        System.out.println("Pokebola adicionada ao seu inventário!");
+                        continue;
+                    }
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
@@ -92,6 +103,9 @@ public class Loja {
     public static void menuPokemons(Scanner scanner, Jogador jogador, ArrayList<Pokemon> pokemonCompra) {
         int indice = 0;
 
+        if (pokemonCompra.isEmpty()) {
+            System.out.println("Você já comprou todos os pokémons disponíveis!");
+        }
         while (indice >= 0 && indice < pokemonCompra.size()) {
             Pokemon p = pokemonCompra.get(indice);
 
@@ -101,6 +115,7 @@ public class Loja {
             System.out.printf("%-10s: %-15.2f%n", "Ataque", p.getAtaque());
             System.out.printf("%-10s: %-15.2f%n", "Defesa", p.getDefesa());
             System.out.printf("%-10s: %-15s%n", "Tipos", p.getTipos().toString());
+            System.out.printf("%-10s: %-15d%n", "Preço", p.calcularPreco());
             System.out.println("---------------------------------------------------------------");
 
             System.out.println("[P] Próximo | [A] Anterior | [E] Escolher | [S] Sair");
@@ -125,11 +140,18 @@ public class Loja {
                     System.out.println("Saindo do menu de Pokémons.");
                     return;
                 case "E":
-                    System.out.println("Você escolheu o Pokémon: " + p.getNome());
-                    jogador.adicionarPokemon(p);
-                    pokemonCompra.remove(p);
-                    System.out.println("Pokémon adicionado ao seu time!");
-                    continue;
+                    if (jogador.getMoedas() < p.calcularPreco()) {
+                        System.out.println("Moedas insuficientes!");
+                        continue;
+                    }
+                    else {
+                        System.out.println("Você escolheu o Pokémon: " + p.getNome());
+                        jogador.adicionarPokemon(p);
+                        pokemonCompra.remove(p);
+                        jogador.removerDinheiro(p.calcularPreco());
+                        System.out.println("Pokémon adicionado ao seu time!");
+                        continue;
+                    }
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
@@ -144,9 +166,10 @@ public class Loja {
             System.out.println("---------------------------------------------------------------");
             System.out.println("Exibindo Poção " + (indice + 1) + " de " + pocoesCompra.size());
             System.out.println((indice+1) + " - Nome: " + p.getNome() + "\nDescrição: " + p.getDescricao());
+            System.out.println("Preço: " + p.getPreco());
             System.out.println("---------------------------------------------------------------");
 
-            System.out.println("[P] Próximo | [A] Anterior | [S] Sair");
+            System.out.println("[P] Próximo | [A] Anterior | [E] Escolher | [S] Sair");
             String opcao = scanner.nextLine().trim().toUpperCase();
 
             switch (opcao) {
@@ -167,6 +190,18 @@ public class Loja {
                 case "S":
                     System.out.println("Saindo do menu de Poções.");
                     return;
+                case "E":
+                    if (jogador.getMoedas() < p.getPreco()) {
+                        System.out.println("Moedas insuficientes!");
+                        continue;
+                    }
+                    else {
+                        System.out.println("Você escolheu a Poção: " + p.getNome());
+                        jogador.adicionarPocao(p);
+                        jogador.removerDinheiro(p.getPreco());
+                        System.out.println("Poção adicionada ao seu inventário!");
+                        continue;
+                    }
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }

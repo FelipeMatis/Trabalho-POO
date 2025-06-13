@@ -27,3 +27,19 @@ Preço de itens e pokemons adicionado
 Adicionado um loop na loja
 
 Agora Pokebolas e Poções são fixas e não somem da loja
+
+6.0
+
+Criada a exceção personalizada PokemonDesmaiadoException para impedir que Pokémons desmaiados ataquem.
+
+Adicionado tratamento de exceções (try-catch) no Main.java para capturar e exibir mensagens de erro amigáveis.
+
+Melhorado o método atacar() com verificação de vida e uso seguro de tipos (instanceof Pokemon outro).
+
+Organizado o código da Main para mostrar status antes e depois da batalha.
+
+Incluído Javadoc e mensagens mais informativas no console.
+
+Garantido o uso prático da interface Acao com polimorfismo.
+
+

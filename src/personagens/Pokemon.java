@@ -1,7 +1,10 @@
 package personagens;
-import java.util.Set;
 
-public class Pokemon extends Criatura {
+import jogo.Acao;
+import java.util.Set;
+import java.util.Objects;
+
+public class Pokemon extends Criatura implements Acao {
     private Set<Tipo> tipos;
 
     public Pokemon(String nome, int nivel, double xp, double vida, double vidaTotal, double ataque, double defesa, Set<Tipo> tipos) {
@@ -19,23 +22,33 @@ public class Pokemon extends Criatura {
 
     @Override
     public void atacar(Criatura alvo) {
-        if (!(alvo instanceof Pokemon)) return;
-        double efetividade = Tipo.calcularEfetividade(this.tipos, ((Pokemon) alvo).getTipos());
-        double dano = (this.getAtaque() - alvo.getDefesa())* efetividade;
-        // para que não ocorra ataques sem dano
+        if (!(alvo instanceof Pokemon outro)) {
+            System.out.println("Alvo inválido para ataque.");
+            return;
+        }
+
+        double efetividade = Tipo.calcularEfetividade(this.tipos, outro.getTipos());
+        double dano = (this.getAtaque() - outro.getDefesa()) * efetividade;
+
         if (dano <= 0) {
             if (efetividade > 1) {
                 dano = this.getAtaque() * 0.20;
-            }
-            else if (efetividade == 1){
+            } else if (efetividade == 1) {
                 dano = this.getAtaque() * 0.10;
-            }
-            else {
+            } else {
                 dano = this.getAtaque() * 0.05;
             }
         }
-        alvo.receberDano(dano);
-        System.out.printf("%s atacou %s causando %.2f de dano!\n", this.getNome(), alvo.getNome(), dano);
+
+        outro.receberDano(dano);
+        System.out.printf("%s atacou %s causando %.2f de dano! (Efetividade: %.2f)\n",
+                this.getNome(), outro.getNome(), dano, efetividade);
+    }
+
+    @Override
+    public void executar(Criatura alvo) {
+        Objects.requireNonNull(alvo, "O alvo da ação não pode ser nulo.");
+        atacar(alvo);
     }
 
     public void ganharXp(Pokemon inimigoDerrotado) {
@@ -51,7 +64,9 @@ public class Pokemon extends Criatura {
             preencherVida();
             System.out.println(this.getNome() + " subiu para o nível " + this.nivel + "!");
         }
-        System.out.println(this.getNome() + " ganhou " + xpGanho + "XP! +" + (xpParaProximoNivel()-this.xp) + " para o próximo nível!");
+
+        System.out.println(this.getNome() + " ganhou " + xpGanho + " XP! Faltam " +
+                (xpParaProximoNivel() - this.xp) + " para o próximo nível.");
     }
 
     private int xpParaProximoNivel() {
@@ -59,15 +74,16 @@ public class Pokemon extends Criatura {
     }
 
     public double calcularXpAdquirido(Pokemon inimigoDerrotado) {
-        double soma = (inimigoDerrotado.getNivel() * 50) + inimigoDerrotado.getVida() + inimigoDerrotado.getAtaque() + inimigoDerrotado.getDefesa();
-        soma *= 0.25;
-        return soma;
+        double soma = (inimigoDerrotado.getNivel() * 50)
+                + inimigoDerrotado.getVida()
+                + inimigoDerrotado.getAtaque()
+                + inimigoDerrotado.getDefesa();
+        return soma * 0.25;
     }
 
     public int calcularPreco() {
-        return  (int)(((getNivel() * 50) + getVida() + getAtaque() + getDefesa()) * 0.5);
+        return (int)(((getNivel() * 50) + getVida() + getAtaque() + getDefesa()) * 0.5);
     }
-
 
     public void preencherVida() {
         vida = vidaTotal;
@@ -89,5 +105,4 @@ public class Pokemon extends Criatura {
                 nome, nivel, vida, vidaTotal, ataque, defesa, tipos
         );
     }
-
 }

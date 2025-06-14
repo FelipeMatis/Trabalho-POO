@@ -42,4 +42,19 @@ Incluído Javadoc e mensagens mais informativas no console.
 
 Garantido o uso prático da interface Acao com polimorfismo.
 
+7.0
+
+Melhoria de legibilidade do código
+
+Parte do código do Main repassado para Jogo
+
+scanner agora é finalizado no fim do código
+
+Poções adicionados para uso (apenas 2 e só podem ser usadas antes da batalha)
+
+Erro do menu principal arrumado
+
+3 pokémons para compra adicionados
+
+
 

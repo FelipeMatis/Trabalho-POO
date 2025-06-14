@@ -1,5 +1,6 @@
 package jogo;
 
+import exceptions.PokemonDesmaiadoException;
 import itens.Pokebola;
 import personagens.Jogador;
 import personagens.Pokemon;
@@ -19,7 +20,11 @@ public class Batalha {
 
         boolean verifica = false; // só pode tentar 1 vez
         while (!jogador.verificaSePerdeu() && !inimigo.verificaSePerdeu()) {
-            pokemonJogador.atacar(inimigo);
+            try {
+                pokemonJogador.executar(inimigo);
+            } catch (PokemonDesmaiadoException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
 
             if (inimigo.verificaSePerdeu()) break;
 
@@ -52,7 +57,11 @@ public class Batalha {
 
             }
 
-            inimigo.atacar(pokemonJogador);
+            try {
+                inimigo.executar(pokemonJogador);
+            } catch (PokemonDesmaiadoException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
 
             if (pokemonJogador.getVida() <= 0) {
                 System.out.println(pokemonJogador.getNome() + " foi derrotado!");

@@ -29,6 +29,20 @@ public class Jogador {
         return pokemonsJogador;
     }
 
+    public void mostrarPocoesJogador() {
+        for (int i = 0; i < pocaoJogador.size(); i++) {
+            System.out.print(i + 1 + ": ");
+            System.out.println(pocaoJogador.get(i));
+        }
+    }
+
+
+    public void mostrarPokemonsJogador() {
+        for (Pokemon p : pokemonsJogador ) {
+            System.out.println(p);
+        }
+    }
+
     public Pokemon getPokemonAtivo() {
         if (indicePokemonComVida >= 0 && indicePokemonComVida < pokemonsJogador.size()) {
             return pokemonsJogador.get(indicePokemonComVida);
@@ -150,6 +164,66 @@ public class Jogador {
         this.moedas -= moedas;
     }
 
+    public void usarPocao(int indice, Scanner scanner) {
+        Pocao pocaoUsada = pocaoJogador.get(indice);
+        System.out.println("Você escolheu: " + pocaoUsada.getNome());
+        int i = 0;
+
+        if (pokemonsJogador.isEmpty()) {
+            System.out.println("Você não possui pokémons disponíveis!");
+        }
+        while (i >= 0 && i < pokemonsJogador.size()) {
+            Pokemon p = pokemonsJogador.get(i);
+
+            System.out.println("Exibindo Pokémon " + (i + 1) + " de " + pokemonsJogador.size());
+            System.out.printf("%-10s: %-15d%n", "Nível", p.getNivel());
+            System.out.printf("%-10s: %-15.2f%n", "Vida", p.getVida());
+            System.out.printf("%-10s: %-15.2f%n", "Ataque", p.getAtaque());
+            System.out.printf("%-10s: %-15.2f%n", "Defesa", p.getDefesa());
+            System.out.printf("%-10s: %-15s%n", "Tipos", p.getTipos().toString());
+            System.out.printf("%-10s: %-15d%n", "Preço", p.calcularPreco());
+            System.out.println("---------------------------------------------------------------");
+
+            System.out.println("[P] Próximo | [A] Anterior | [E] Escolher | [S] Sair");
+            String opcao = scanner.nextLine().trim().toUpperCase();
+
+            switch (opcao) {
+                case "P":
+                    if (i < pokemonsJogador.size() - 1) {
+                        i++;
+                    } else {
+                        System.out.println("Você já está no último Pokémon.");
+                    }
+                    break;
+                case "A":
+                    if (i > 0) {
+                        i--;
+                    } else {
+                        System.out.println("Você já está no primeiro Pokémon.");
+                    }
+                    break;
+                case "S":
+                    System.out.println("Saindo do menu de Pokémons.");
+                    return;
+                case "E":
+                    if (pocaoUsada.getNome().equals("Subir nível")) {
+                        p.uparPokemon();
+                        System.out.println(p.getNome() + " subiu de nivel!");
+                    }
+                    else if (pocaoUsada.getNome().equals("Vida")) {
+                        p.preencherVidaPocao();
+                        System.out.println(p.getNome() + " recuperou 40% da vida!");
+                        System.out.println(p.getVida() + "/" + p.getVidaTotal());
+                    }
+                    pocaoJogador.remove(pocaoUsada);
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+
+    }
+
     public int getMoedas() {
         return moedas;
     }
@@ -161,6 +235,10 @@ public class Jogador {
 
     public ArrayList<Pokebola> getPokebolaJogador() {
         return pokebolaJogador;
+    }
+
+    public ArrayList<Pocao> getPocaoJogador() {
+        return pocaoJogador;
     }
 
     @Override

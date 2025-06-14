@@ -22,4 +22,9 @@ public class Pocao {
     public int getPreco() {
         return preco;
     }
+
+    @Override
+    public String toString() {
+        return "Poção: " + nome + " - " + descricao;
+    }
 }

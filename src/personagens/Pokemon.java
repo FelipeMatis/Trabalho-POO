@@ -69,6 +69,18 @@ public class Pokemon extends Criatura implements Acao {
                 (xpParaProximoNivel() - this.xp) + " para o próximo nível.");
     }
 
+    public void uparPokemon() {
+        this.nivel++;
+        this.vidaTotal *= 1.05;
+        this.ataque *= 1.05;
+        this.defesa *= 1.05;
+        preencherVida();
+    }
+
+    public void preencherVidaPocao() {
+        this.vida *= 1.4;
+    }
+
     private int xpParaProximoNivel() {
         return this.nivel * 100;
     }

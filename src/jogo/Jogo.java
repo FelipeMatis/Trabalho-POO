@@ -5,21 +5,32 @@ import java.util.Scanner;
 import java.util.Set;
 
 import exceptions.*;
+import java.util.InputMismatchException;
 import personagens.*;
 import itens.*;
 
+/**
+ * Classe principal do código
+ * Controla o funcionamento do jogo
+ * escolha de pokémons, batalhas, loja e inventário
+ * @author pedro
+ * @version 1.0
+ * */
 public class Jogo {
 
-    private ArrayList<Pokemon> opcoes;
-    private ArrayList<Pokemon> pokemons;
-    private ArrayList<Pokemon> pokemonsJogador;
-    private ArrayList<Pokebola> pokebolasJogador;
-    private ArrayList<Pocao> pocoesJogador;
-    private ArrayList<Pokebola> pokebolasCompra;
-    private ArrayList<Pocao> pocoesCompra;
-    private ArrayList<Pokemon> pokemonsCompra;
-    private Scanner scanner;
+    private final ArrayList<Pokemon> opcoes;
+    private final ArrayList<Pokemon> pokemons;
+    private final ArrayList<Pokemon> pokemonsJogador;
+    private final ArrayList<Pokebola> pokebolasJogador;
+    private final ArrayList<Pocao> pocoesJogador;
+    private final ArrayList<Pokebola> pokebolasCompra;
+    private final ArrayList<Pocao> pocoesCompra;
+    private final ArrayList<Pokemon> pokemonsCompra;
+    private final Scanner scanner;
 
+    /**
+     * Construtor da classe jogo, inicializa as listas e o scanner
+     * */
     public Jogo() {
         scanner = new Scanner(System.in);
         opcoes = new ArrayList<>();
@@ -33,6 +44,18 @@ public class Jogo {
         inicializarPokemons();
     }
 
+    public void mostrarPocoesJogador() {
+        for (int i = 0; i < pocoesJogador.size(); i++) {
+            System.out.print(i + 1 + ": ");
+            System.out.println(pocoesJogador.get(i));
+        }
+    }
+
+    /**
+     * Inicia o jogo controlando todo o funcionamento do código
+     * escolha de pokémon
+     * loja
+     * */
     public void iniciar() {
         String nomeJogador = obterNomeJogador();
         Jogador jogador = new Jogador(nomeJogador, pokemonsJogador, pokebolasJogador, pocoesJogador);
@@ -59,7 +82,6 @@ public class Jogo {
         int fase = 1;
         int indicePInimigo = 0;
 
-        jogador.adicionarDinheiro(1000); // testando loja
         while (!jogador.verificaSePerdeu()) {
             if (indicePInimigo >= pokemons.size()) {
                 System.out.println("Parabéns! Você derrotou todos os Pokémons inimigos!");
@@ -77,6 +99,8 @@ public class Jogo {
             if (jogador.verificaSePerdeu()) {
                 break;
             }
+
+            jogador.adicionarDinheiro(fase * 50);
 
             System.out.println("Fase " + fase);
 
@@ -119,15 +143,19 @@ public class Jogo {
                 }
             }
 
-            jogador.adicionarDinheiro(fase*50);
-
             indicePInimigo++;
             fase++;
         }
 
         System.out.println("Fim do jogo!");
+        scanner.close();
     }
 
+/**
+     * Cria pokémons para escolha de inicio
+     * Cria pokémons inimigos
+     * Cria Itens e pokémons da loja
+     * */
     private void inicializarPokemons() {
         // opcoes para escolha inicio
         opcoes.add(new Pokemon("Pikachu", 1, 0, 35, 35, 55, 40, Set.of(Tipo.ELETRICO)));
@@ -151,7 +179,7 @@ public class Jogo {
         pokebolasJogador.add(new Pokebola("Pokebola", 0.5, 50));
 
         // poções de inicio
-        pocoesJogador.add(new Pocao("Subiir nível", "Aumenta o nível do pokemon\n" +
+        pocoesJogador.add(new Pocao("Subir nível", "Aumenta o nível do pokemon\n" +
                 "Essa poção enche a vida do pokémon*", 125));
 
         // pokebolas para comprar
@@ -160,19 +188,22 @@ public class Jogo {
         pokebolasCompra.add(new Pokebola("Master ball", 1, 150));
 
         // pocoes para comprar
-        pocoesCompra.add(new Pocao("Força 2x", "Ataques causam x2 de dano por 3 turnos", 50));
+        // pocoes só podem ser usadas antes de batalhas!
         pocoesCompra.add(new Pocao("Vida", "Recupera 40% do HP", 35));
-        pocoesCompra.add(new Pocao("Subiir nível", "Aumenta o nível do pokemon\n" +
+        pocoesCompra.add(new Pocao("Subir nível", "Aumenta o nível do pokemon\n" +
                 "Essa poção enche a vida do pokémon*", 125));
 
         // pokemons para comprar
-        // por enquanto apenas testes!
-        pokemonsCompra.add(new Pokemon("Garchomp", 1, 0, 108, 108,130, 102, Set.of(Tipo.DRAGAO, Tipo.TERRA)));
-        pokemonsCompra.add(new Pokemon("Salamence", 1, 0, 95, 95,135, 100, Set.of(Tipo.DRAGAO, Tipo.VOADOR)));
-        pokemonsCompra.add(new Pokemon("Mewtwo", 1, 0, 106, 106,110, 130, Set.of(Tipo.PSIQUICO)));
-
+        pokemonsCompra.add(new Pokemon("Persian", 1, 0, 65, 65,70, 60, Set.of(Tipo.NORMAL)));
+        pokemonsCompra.add(new Pokemon("Galarian Moltres", 1, 0, 90, 90,85, 90, Set.of(Tipo.NOTURNO, Tipo.VOADOR)));
+        pokemonsCompra.add(new Pokemon("Rayquaza", 1, 0, 105, 105,150, 90, Set.of(Tipo.DRAGAO, Tipo.VOADOR)));
     }
 
+    /**
+     * Método para ler o nome do Jogador
+     * @return nome do Jogador
+     * @throws NomeInvalidoException caso nome vazio ou inválido
+     * */
     private String obterNomeJogador() {
         String nomeJogador = null;
 
@@ -197,6 +228,11 @@ public class Jogo {
         return nomeJogador;
     }
 
+    /**
+     * Método para ler a escolha do pokémon inicial
+     * @return número do pokémon escolhido
+     * @throws EscolhaInvalidaException caso entrada inválida
+     * */
     private int escolherPokemon() {
         int escolha = 0;
 
@@ -224,35 +260,50 @@ public class Jogo {
         return escolha;
     }
 
+    /**
+     * Método que exibe o menu interativo
+     * @param scanner usado para entrada do usuário
+     * @return escolha do usuário via menu
+     * */
     public static int mostrarMenu(Scanner scanner) {
-        int escolha = -1;
-
+        int escolha;
         while (true) {
             try {
-                System.out.println("Escolha uma opção:");
+                System.out.println("\nEscolha uma opção:");
                 System.out.println("1 - Batalhar");
                 System.out.println("2 - Loja");
                 System.out.println("3 - Meus Pokémons");
                 System.out.println("4 - Minhas Pokébolas");
-                System.out.println("5 - Desistir");
+                System.out.println("5 - Minhas Poções");
+                System.out.println("6 - Desistir");
                 System.out.print("Digite sua escolha: ");
 
-                escolha = scanner.nextInt();
+                String entrada = scanner.nextLine();
+                escolha = Integer.parseInt(entrada.trim());
 
-                if (escolha >= 1 && escolha <= 5) {
+                if (escolha >= 1 && escolha <= 6) {
                     break;
                 } else {
-                    System.out.println("Opção inválida! Digite um número entre 1 e 5.");
+                    System.out.println("Opção inválida! Digite um número entre 1 e 6.");
                 }
-            } catch (EscolhaInvalidaException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Entrada inválida! Por favor, digite um número inteiro.");
-                scanner.nextLine();
             }
         }
 
         return escolha;
     }
 
+    /**
+     * Executa a ação do menu
+     * @param escolha opção escolhida
+     * @param meuPokemon pokémon atual do usuário
+     * @param inimigo pokémon inimigo do usuário
+     * @param scanner para entrada de dados
+     * @param pokemonsCompra lista de pokémons para compra
+     * @param pokebolasCompra lista de pokébolas para compra
+     * @param pocoesCompra lista de poções para compra
+     * */
     public static void usaMenu(int escolha, Pokemon meuPokemon, Pokemon inimigo, Jogador jogador, Scanner scanner, ArrayList<Pokemon> pokemonsCompra, ArrayList<Pokebola> pokebolasCompra, ArrayList<Pocao> pocoesCompra) {
         switch (escolha) {
             case 1:
@@ -268,17 +319,50 @@ public class Jogo {
                     loja.usaMenu(escolhaLoja, jogador, scanner, pokemonsCompra, pokebolasCompra, pocoesCompra);
 
                 }
-
                 break;
             case 3:
                 System.out.println("Você escolheu: Meus Pokémons\n");
-                System.out.println(jogador.getPokemonsJogador());
+                jogador.mostrarPokemonsJogador();
                 break;
             case 4:
                 System.out.println("Você escolheu: Minhas Pokébolas\n");
                 System.out.println(jogador.getPokebolaJogador());
                 break;
             case 5:
+                System.out.println("Você escolheu: Minhas Poções\n");
+                jogador.mostrarPocoesJogador();
+                int escolhaPocao = -1;
+
+                while (true) {
+                    try {
+                        System.out.print("Digite o número da poção que deseja escolher (0 para sair): ");
+
+                        if (!scanner.hasNextInt()) {
+                            throw new EscolhaInvalidaException("Entrada inválida. Digite um número.");
+                        }
+
+                        escolhaPocao = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (escolhaPocao == 0) {
+                            System.out.println("Saindo da escolha de poções.");
+                            break;
+                        }
+
+                        if (escolhaPocao < 1 || escolhaPocao > jogador.getPocaoJogador().size()) {
+                            throw new EscolhaInvalidaException("Número fora do intervalo. Escolha de 1 a " + jogador.getPocaoJogador().size());
+                        }
+
+                        jogador.usarPocao(escolhaPocao - 1, scanner);
+                        break;
+
+                    } catch (EscolhaInvalidaException e) {
+                        System.out.println("Erro: " + e.getMessage());
+                        scanner.nextLine();
+                    }
+                }
+                break;
+            case 6:
                 System.out.println("Que pena! Fechando o programa...");
                 System.exit(0);
                 break;

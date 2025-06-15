@@ -100,7 +100,7 @@ public class Jogo {
                 break;
             }
 
-            jogador.adicionarDinheiro(fase * 50);
+            jogador.adicionarDinheiro(fase * 25);
 
             System.out.println("Fase " + fase);
 
@@ -195,8 +195,8 @@ public class Jogo {
 
         // pokemons para comprar
         pokemonsCompra.add(new Pokemon("Persian", 1, 0, 65, 65,70, 60, Set.of(Tipo.NORMAL)));
-        pokemonsCompra.add(new Pokemon("Galarian Moltres", 1, 0, 90, 90,85, 90, Set.of(Tipo.NOTURNO, Tipo.VOADOR)));
-        pokemonsCompra.add(new Pokemon("Rayquaza", 1, 0, 105, 105,150, 90, Set.of(Tipo.DRAGAO, Tipo.VOADOR)));
+        pokemonsCompra.add(new Pokemon("Galarian Moltres", 3, 0, 90, 90,85, 90, Set.of(Tipo.NOTURNO, Tipo.VOADOR)));
+        pokemonsCompra.add(new Pokemon("Rayquaza", 5, 0, 105, 105,150, 90, Set.of(Tipo.DRAGAO, Tipo.VOADOR)));
     }
 
     /**
@@ -269,7 +269,7 @@ public class Jogo {
         int escolha;
         while (true) {
             try {
-                System.out.println("\nEscolha uma opção:");
+                System.out.println("Escolha uma opção:");
                 System.out.println("1 - Batalhar");
                 System.out.println("2 - Loja");
                 System.out.println("3 - Meus Pokémons");
@@ -321,16 +321,23 @@ public class Jogo {
                 }
                 break;
             case 3:
-                System.out.println("Você escolheu: Meus Pokémons\n");
+                System.out.println("Você escolheu: Meus Pokémons");
                 jogador.mostrarPokemonsJogador();
+                System.out.println();
                 break;
             case 4:
-                System.out.println("Você escolheu: Minhas Pokébolas\n");
-                System.out.println(jogador.getPokebolaJogador());
+                if (jogador.getPokebolaJogador().isEmpty()) {
+                    System.out.println("Você não possui pokebolas\n");
+                }
+                else {
+                    System.out.println(jogador.getPokebolaJogador());
+                    System.out.println();
+                }
                 break;
             case 5:
                 System.out.println("Você escolheu: Minhas Poções\n");
                 jogador.mostrarPocoesJogador();
+                System.out.println();
                 int escolhaPocao = -1;
 
                 while (true) {

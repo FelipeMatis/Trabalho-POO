@@ -110,6 +110,7 @@ public class Loja {
             Pokemon p = pokemonCompra.get(indice);
 
             System.out.println("Exibindo Pokémon " + (indice + 1) + " de " + pokemonCompra.size());
+            System.out.printf("%-10s: %-15s%n", "Nome", p.getNome());
             System.out.printf("%-10s: %-15d%n", "Nível", p.getNivel());
             System.out.printf("%-10s: %-15.2f%n", "Vida", p.getVida());
             System.out.printf("%-10s: %-15.2f%n", "Ataque", p.getAtaque());

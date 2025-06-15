@@ -12,10 +12,6 @@ public class Batalha {
         boolean resultado = false;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println();
-        System.out.println(pokemonJogador.getNome() + " vs " + inimigo.getNome());
-        System.out.println();
-
         mostrarStats(pokemonJogador, inimigo);
 
         boolean verifica = false; // só pode tentar 1 vez

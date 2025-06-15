@@ -94,7 +94,7 @@ public class Pokemon extends Criatura implements Acao {
     }
 
     public int calcularPreco() {
-        return (int)(((getNivel() * 50) + getVida() + getAtaque() + getDefesa()) * 0.5);
+        return (int)(((getNivel() * 100) + getVida() + getAtaque() + getDefesa()) * 0.5);
     }
 
     public void preencherVida() {

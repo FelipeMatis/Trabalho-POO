@@ -56,5 +56,13 @@ Erro do menu principal arrumado
 
 3 pokémons para compra adicionados
 
+7.1 
+
+Correção de saídas duplicadas/sem quebra de linha
+
+Aumento do preço dos pokemons da loja
+
+Diminuição do dinheiro ganho por fase
+
 
 

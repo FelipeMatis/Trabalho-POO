@@ -6,8 +6,18 @@ import personagens.Jogador;
 import personagens.Pokemon;
 import java.util.Scanner;
 
+/**
+ * Classe que trata a batalha entre pokémons
+ * @author .
+ * @version 1.0
+ * */
 public class Batalha {
-
+    /**
+     * Funcionamento da batalha
+     * @param pokemonJogador pokemon atual do jogador
+     * @param inimigo pokemon inimigo
+     * @param jogador jogador para métodos do Jogador
+     * */
     public static void batalhar(Pokemon pokemonJogador, Pokemon inimigo, Jogador jogador) {
         boolean resultado = false;
         Scanner scanner = new Scanner(System.in);
@@ -82,6 +92,11 @@ public class Batalha {
         System.out.println();
     }
 
+    /**
+     * Mostra os status dos pokemons que vão batalhar
+     * @param p pokemon do jogador
+     * @param inimigo pokemon inimigo
+     * */
     public static void mostrarStats(Pokemon p, Pokemon inimigo) {
         System.out.println("---------------------------------------------------------------");
         System.out.printf("%-20s VS %-20s%n", p.getNome(), inimigo.getNome());

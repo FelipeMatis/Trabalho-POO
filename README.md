@@ -60,6 +60,9 @@ Erro do menu principal arrumado
 
 Correção de saídas duplicadas/sem quebra de linha
 
+7.2
+
+Classe jogo dividida em 3 classes (Entradas, Menu, Jogo)
 Aumento do preço dos pokemons da loja
 
 Diminuição do dinheiro ganho por fase

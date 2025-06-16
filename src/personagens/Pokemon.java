@@ -78,7 +78,13 @@ public class Pokemon extends Criatura implements Acao {
     }
 
     public void preencherVidaPocao() {
-        this.vida *= 1.4;
+        double aux = this.vida *= 1.4;
+        if (aux > this.vidaTotal) {
+            this.vida = this.vidaTotal;
+        }
+        else {
+            this.vida = aux;
+        }
     }
 
     private int xpParaProximoNivel() {

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"exceptions"},{"l":"itens"},{"l":"jogo"},{"l":"personagens"}];updateSearchResults();

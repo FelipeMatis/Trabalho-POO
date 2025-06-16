@@ -1,0 +1,46 @@
+===== INÍCIO DO JOGO =====
+Jogador criado: dsds
+Início da batalha: Pikachu VS Sunkern
+Pikachu atacou Sunkern. Vida do inimigo: 17,50
+Sunkern atacou Pikachu. Vida do jogador: 32,00
+Pikachu atacou Sunkern. Vida do inimigo: 5,00
+Jogador recusou tentar capturar Sunkern.
+Sunkern atacou Pikachu. Vida do jogador: 29,00
+Pikachu atacou Sunkern. Vida do inimigo: 0,00
+Sunkern foi derrotado antes do contra-ataque.
+Fim da batalha: Jogador derrotou Sunkern.
+Pikachu ganhou XP após derrotar Sunkern.
+----- FIM DA RODADA DE BATALHA (Inimigo derrotado) -----
+dsds recebeu 25 moedas. Total: 25.
+Início da batalha: Pikachu VS Magikarp
+Pikachu atacou Magikarp. Vida do inimigo: 9,00
+Magikarp atacou Pikachu. Vida do jogador: 28,00
+Pikachu atacou Magikarp. Vida do inimigo: 0,00
+Magikarp foi derrotado antes do contra-ataque.
+Fim da batalha: Jogador derrotou Magikarp.
+Pikachu ganhou XP após derrotar Magikarp.
+----- FIM DA RODADA DE BATALHA (Inimigo derrotado) -----
+dsds recebeu 50 moedas. Total: 75.
+Início da batalha: Pikachu VS Happiny
+Pikachu atacou Happiny. Vida do inimigo: 75,00
+Happiny atacou Pikachu. Vida do jogador: 27,50
+Pikachu atacou Happiny. Vida do inimigo: 50,00
+Happiny atacou Pikachu. Vida do jogador: 27,00
+Pikachu atacou Happiny. Vida do inimigo: 25,00
+Jogador recusou tentar capturar Happiny.
+Happiny atacou Pikachu. Vida do jogador: 26,50
+Pikachu atacou Happiny. Vida do inimigo: 0,00
+Happiny foi derrotado antes do contra-ataque.
+Fim da batalha: Jogador derrotou Happiny.
+Pikachu ganhou XP após derrotar Happiny.
+----- FIM DA RODADA DE BATALHA (Inimigo derrotado) -----
+dsds recebeu 75 moedas. Total: 150.
+Início da batalha: Pikachu VS Growlithe
+Pikachu atacou Growlithe. Vida do inimigo: 49,50
+Growlithe atacou Pikachu. Vida do jogador: 0,00
+Pikachu foi derrotado.
+dsds tentando trocar para o próximo Pokémon vivo.
+dsds não encontrou outro Pokémon vivo para trocar.
+Fim da batalha: Jogador perdeu.
+dsds perdeu a batalha, todos os Pokémons foram desmaiados.
+===== FIM DO JOGO =====

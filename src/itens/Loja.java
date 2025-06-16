@@ -81,7 +81,7 @@ public class Loja {
 
             System.out.println("---------------------------------------------------------------");
             System.out.println("Exibindo Pokebola " + (indice + 1) + " de " + pokebolaCompra.size());
-            System.out.println("Tipo: " + p.getTipo() + " Taxa de Captura: " + p.getTaxaCaptura() + "Preço: " + p.getPreco());
+            System.out.println("Tipo: " + p.getTipo() + " Taxa de Captura: " + p.getTaxaCaptura() + " Preço: " + p.getPreco());
             System.out.println("---------------------------------------------------------------");
 
             System.out.println("[P] Próximo | [A] Anterior | [E] Escolher | [S] Sair");

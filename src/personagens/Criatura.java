@@ -1,5 +1,10 @@
 package personagens;
 
+/**
+ * Classe abstrata Criatura
+ * @author .
+ * @version 1.0
+ * */
 public abstract class Criatura {
     protected String nome;
     protected int nivel;
@@ -9,6 +14,15 @@ public abstract class Criatura {
     protected double ataque;
     protected double defesa;
 
+    /**
+     * Construtor da classe Criatura
+     * @param nome
+     * @param xp
+     * @param vida
+     * @param vidaTotal
+     * @param ataque
+     * @param defesa
+     * */
     public Criatura(String nome, int nivel, double xp, double vida, double vidaTotal, double ataque, double defesa) {
         this.nome = nome;
         this.nivel = nivel;

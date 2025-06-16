@@ -6,7 +6,16 @@ import personagens.Pokemon;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Classe para funcionamento da Loja
+ * @author .
+ * @version 1.0
+ * */
 public class Loja {
+    /**
+     * Método para mostrar o menu interativo
+     * @param scanner usado para solicitar entrada ao usuário
+     * */
     public  int mostrarMenu(Scanner scanner) {
         int escolha;
 
@@ -32,6 +41,14 @@ public class Loja {
         return escolha;
     }
 
+    /**
+     * Funcionalidade a partir da escolha do usuário
+     * @param escolha escolha do usuário
+     * @param jogador jogador
+     * @param pokemonCompra lista de pokémons para compra
+     * @param pokebolaCompra lista de pokébolas para compra
+     * @param pocoesCompra lista de poções para compra
+     * */
     public void usaMenu(int escolha, Jogador jogador, Scanner scanner, ArrayList<Pokemon> pokemonCompra, ArrayList<Pokebola> pokebolaCompra, ArrayList<Pocao> pocoesCompra) {
         System.out.println("Saldo: " + jogador.getMoedas());
         switch (escolha) {
@@ -51,6 +68,12 @@ public class Loja {
         }
     }
 
+    /**
+     * Método do menu de Pokebolas
+     * @param scanner para ler entrada do usuário
+     * @param jogador jogador
+     * @param pokebolaCompra lista de pokébolas para compra
+     * */
     public static void menuPokebolas(Scanner scanner, Jogador jogador, ArrayList<Pokebola> pokebolaCompra) {
         int indice = 0;
         while (indice >= 0 && indice < pokebolaCompra.size()) {
@@ -100,6 +123,12 @@ public class Loja {
         }
     }
 
+    /**
+     * Método do menu de Pokémons
+     * @param scanner para ler entrada do usuário
+     * @param jogador jogador
+     * @param pokemonCompra lista de pokemons para compra
+     * */
     public static void menuPokemons(Scanner scanner, Jogador jogador, ArrayList<Pokemon> pokemonCompra) {
         int indice = 0;
 
@@ -159,6 +188,12 @@ public class Loja {
         }
     }
 
+    /**
+     * Método do menu de Pokebolas
+     * @param scanner para ler entrada do usuário
+     * @param jogador jogador
+     * @param pocoesCompra lista de poções para compra
+     * */
     public static void menuPocoes(Scanner scanner, Jogador jogador, ArrayList<Pocao> pocoesCompra) {
         int indice = 0;
         while (indice >= 0 && indice < pocoesCompra.size()) {

@@ -228,11 +228,6 @@ public class Jogador {
         return moedas;
     }
 
-
-    public int getIndicePokemonComVida() {
-        return indicePokemonComVida;
-    }
-
     public ArrayList<Pokebola> getPokebolaJogador() {
         return pokebolaJogador;
     }

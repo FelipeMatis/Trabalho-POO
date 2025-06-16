@@ -18,16 +18,20 @@ Ao enfraquecer um adversário, você terá a opção de capturá-lo.
 Captura bem-sucedida: Ganhe 75 moedas.
 Captura recusada ou derrota do inimigo: Receba níveis de experiência e 50 moedas.
 Pokémon capturados podem ser adicionados à sua equipe para futuras batalhas.
+
 Loja:
 
 Compre itens essenciais para sua jornada, como Pokébolas e poções.
 Você será notificado caso não possua moedas suficientes para uma compra.
+
 Minhas Pokébolas:
 
 Visualize as Pokébolas em seu inventário e verifique se elas contêm algum Pokémon.
+
 Minhas Poções:
 
 Consulte suas poções disponíveis e escolha qual Pokémon será curado.
+
 Desistir:
 
 Encerra o programa a qualquer momento.

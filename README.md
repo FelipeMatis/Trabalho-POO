@@ -7,6 +7,7 @@ Escolha do Treinador e Pokémon Inicial:
 
 Defina seu nome de treinador.
 Selecione seu Pokémon inicial e visualize seus atributos e tipagem.
+
 Menu Principal:
 
 A partir daqui, você terá acesso às principais ações do jogo.

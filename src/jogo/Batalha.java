@@ -31,7 +31,6 @@ public class Batalha {
         while (!jogador.verificaSePerdeu() && !inimigo.verificaSePerdeu() && !resultadoCaptura) {
             try {
                 pokemonJogador.executar(inimigo);
-                // AQUI: Formatando a vida do inimigo
                 Relatorio.registrar(pokemonJogador.getNome() + " atacou " + inimigo.getNome() + ". Vida do inimigo: " + String.format("%.2f", inimigo.getVida()));
             } catch (PokemonDesmaiadoException e) {
                 System.out.println("Erro: " + e.getMessage());
@@ -84,7 +83,6 @@ public class Batalha {
 
             try {
                 inimigo.executar(pokemonJogador);
-                // AQUI: Formatando a vida do jogador
                 Relatorio.registrar(inimigo.getNome() + " atacou " + pokemonJogador.getNome() + ". Vida do jogador: " + String.format("%.2f", pokemonJogador.getVida()));
             } catch (PokemonDesmaiadoException e) {
                 System.out.println("Erro: " + e.getMessage());
@@ -134,7 +132,6 @@ public class Batalha {
         System.out.printf("%-20s VS %-20s%n", p.getNome(), inimigo.getNome());
         System.out.println("---------------------------------------------------------------");
         System.out.printf("%-10s: %-15d VS %-15d%n", "Nível", p.getNivel(), inimigo.getNivel());
-        // AQUI: Formatação da vida no mostrarStats também
         System.out.printf("%-10s: %-15.2f VS %-15.2f%n", "Vida", p.getVida(), inimigo.getVida());
         System.out.printf("%-10s: %-15.2f VS %-15.2f%n", "Ataque", p.getAtaque(), inimigo.getAtaque());
         System.out.printf("%-10s: %-15.2f VS %-15.2f%n", "Defesa", p.getDefesa(), inimigo.getDefesa());

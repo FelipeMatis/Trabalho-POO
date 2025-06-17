@@ -56,39 +56,55 @@ public class Pokemon extends Criatura implements Acao {
         this.xp += xpGanho;
 
         while (this.xp >= xpParaProximoNivel()) {
-            this.xp -= xpParaProximoNivel();
-            this.nivel++;
-            this.vidaTotal *= 1.05;
-            this.ataque *= 1.05;
-            this.defesa *= 1.05;
-            preencherVida();
+            if (nivel%2 == 0) {
+                this.xp -= xpParaProximoNivel();
+                this.nivel++;
+                this.vidaTotal *= 1.20;
+                this.ataque *= 1.10;
+                this.defesa *= 1.10;
+                preencherVida();
+            } else {
+                this.xp -= xpParaProximoNivel();
+                this.nivel++;
+                this.vidaTotal *= 1.05;
+                this.ataque *= 1.05;
+                this.defesa *= 1.05;
+                preencherVida();
+            }
             System.out.println(this.getNome() + " subiu para o nível " + this.nivel + "!");
         }
 
-        System.out.println(this.getNome() + " ganhou " + xpGanho + " XP! Faltam " +
-                (xpParaProximoNivel() - this.xp) + " para o próximo nível.");
+        System.out.printf("%s ganhou %.2f XP! Faltam %.2f para o próximo nível.%n",
+                this.getNome(), xpGanho, xpParaProximoNivel() - this.xp);
     }
 
     public void uparPokemon() {
         this.nivel++;
-        this.vidaTotal *= 1.05;
-        this.ataque *= 1.05;
-        this.defesa *= 1.05;
-        preencherVida();
+        if (nivel%2 == 0) {
+            this.vidaTotal *= 1.20;
+            this.ataque *= 1.10;
+            this.defesa *= 1.10;
+            preencherVida();
+        }
+        else {
+            this.vidaTotal *= 1.10;
+            this.ataque *= 1.08;
+            this.defesa *= 1.08;
+            preencherVida();
+        }
     }
 
     public void preencherVidaPocao() {
-        double aux = this.vida *= 1.4;
+        double aux = (this.vidaTotal * 0.5) + this.vida;
         if (aux > this.vidaTotal) {
             this.vida = this.vidaTotal;
-        }
-        else {
+        } else {
             this.vida = aux;
         }
     }
 
     private int xpParaProximoNivel() {
-        return this.nivel * 100;
+        return this.nivel * 40;
     }
 
     public double calcularXpAdquirido(Pokemon inimigoDerrotado) {
@@ -96,11 +112,11 @@ public class Pokemon extends Criatura implements Acao {
                 + inimigoDerrotado.getVida()
                 + inimigoDerrotado.getAtaque()
                 + inimigoDerrotado.getDefesa();
-        return soma * 0.25;
+        return soma * 0.55;
     }
 
     public int calcularPreco() {
-        return (int)(((getNivel() * 100) + getVida() + getAtaque() + getDefesa()) * 0.5);
+        return (int)(((getNivel() * 80) + getVida() + getAtaque() + getDefesa()) * 1.2);
     }
 
     public void preencherVida() {

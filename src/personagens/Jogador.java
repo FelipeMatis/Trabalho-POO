@@ -221,8 +221,9 @@ public class Jogador {
             Pokemon p = pokemonsJogador.get(i);
 
             System.out.println("Exibindo Pokémon " + (i + 1) + " de " + pokemonsJogador.size());
+            System.out.printf("%-10s: %-15s%n", "Nome", p.getNome());
             System.out.printf("%-10s: %-15d%n", "Nível", p.getNivel());
-            System.out.printf("%-10s: %-15.2f%n", "Vida", p.getVida());
+            System.out.printf("%-10s: %.2f/%.2f%n", "Vida", p.getVida(), p.getVidaTotal());
             System.out.printf("%-10s: %-15.2f%n", "Ataque", p.getAtaque());
             System.out.printf("%-10s: %-15.2f%n", "Defesa", p.getDefesa());
             System.out.printf("%-10s: %-15s%n", "Tipos", p.getTipos().toString());
@@ -254,18 +255,25 @@ public class Jogador {
                 case "S":
                     System.out.println("Saindo do menu de Pokémons.");
                     Relatorio.registrar(nome + " saiu do menu de Pokémons sem usar a poção " + pocaoUsada.getNome() + ".");
-                    return; // Sai do método
+                    return;
                 case "E":
                     if (pocaoUsada.getNome().equals("Subir nível")) {
                         p.uparPokemon();
-                        System.out.println(p.getNome() + " subiu de nivel!");
+                        System.out.println(p.getNome() + " subiu de nivel! " + (p.getNivel()-1) + " -> " + p.getNivel());
                         Relatorio.registrar(nome + " usou '" + pocaoUsada.getNome() + "' em " + p.getNome() + ". Nível atual: " + p.getNivel() + ".");
                     }
                     else if (pocaoUsada.getNome().equals("Vida")) {
-                        p.preencherVidaPocao();
-                        System.out.println(p.getNome() + " recuperou 40% da vida!");
-                        System.out.println(p.getVida() + "/" + p.getVidaTotal());
-                        Relatorio.registrar(nome + " usou '" + pocaoUsada.getNome() + "' em " + p.getNome() + ". Vida atual: " + p.getVida() + "/" + p.getVidaTotal() + ".");
+                        if (p.getVida() == p.getVidaTotal()) {
+                            System.out.println("Seu pokémon já esta com a vida máxima!");
+                            break;
+                        }
+                        else {
+                            p.preencherVidaPocao();
+                            System.out.println(p.getNome() + " recuperou 40% da vida!");
+                            System.out.printf("%-10s: %.2f/%.2f%n", "Vida", p.getVida(), p.getVidaTotal());
+                            Relatorio.registrar(nome + " usou '" + pocaoUsada.getNome() + "' em " + p.getNome() + ". Vida atual: " + p.getVida() + "/" + p.getVidaTotal() + ".");
+
+                        }
                     }
                     pocaoJogador.remove(pocaoUsada);
                     Relatorio.registrar(nome + " removeu a poção '" + pocaoUsada.getNome() + "' do inventário após uso.");

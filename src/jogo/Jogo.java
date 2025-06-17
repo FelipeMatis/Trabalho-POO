@@ -71,7 +71,7 @@ public class Jogo {
         int fase = 1;
         int indicePInimigo = 0;
 
-        while (!jogador.verificaSePerdeu()) {
+        while (!jogador.verificaSePerdeu() || ((indicePInimigo+1) == pokemons.size())) {
             if (indicePInimigo >= pokemons.size()) {
                 System.out.println("Parabéns! Você derrotou todos os Pokémons inimigos!");
                 break;
@@ -88,14 +88,16 @@ public class Jogo {
 
             if (jogador.verificaSePerdeu()) break;
 
-            jogador.adicionarDinheiro(fase * 25);
+            jogador.adicionarDinheiro(fase * 30);
 
             System.out.println("Fase " + fase);
             if (pokemonsJogador.size() > 1) {
                 System.out.println("Escolha um Pokémon para iniciar a batalha:");
                 for (int i = 0; i < pokemonsJogador.size(); i++) {
                     Pokemon p = pokemonsJogador.get(i);
-                    System.out.println((i + 1) + " - " + p.getNome() + " (Vida: " + p.getVida() + ")");
+                    System.out.printf("%d - %s (Vida: %.2f/%.2f)%n",
+                            i + 1, p.getNome(), p.getVida(), p.getVidaTotal());
+
                 }
 
                 boolean escolhaValida = false;
@@ -146,15 +148,16 @@ public class Jogo {
 
         // inimigos
         pokemons.add(new Pokemon("Sunkern", 1, 0, 30, 30, 30, 30, Set.of(Tipo.GRAMA)));
-        pokemons.add(new Pokemon("Magikarp", 1, 0, 20, 20,10, 80, Set.of(Tipo.AGUA)));
+        pokemons.add(new Pokemon("Magikarp", 1, 0, 20, 20, 10, 80, Set.of(Tipo.AGUA)));
         pokemons.add(new Pokemon("Happiny", 1, 0, 100, 100, 5, 30, Set.of(Tipo.NORMAL)));
+
         pokemons.add(new Pokemon("Growlithe", 1, 0, 55, 55, 70, 60, Set.of(Tipo.FOGO)));
-        pokemons.add(new Pokemon("Murkrow", 1, 0, 60, 60,85, 91, Set.of(Tipo.NOTURNO, Tipo.VOADOR)));
-        pokemons.add(new Pokemon("Floatzel", 1, 0, 85, 85,105, 115, Set.of(Tipo.AGUA)));
-        pokemons.add(new Pokemon("Lucario", 1, 0, 70, 70,110, 90, Set.of(Tipo.LUTADOR, Tipo.METAL)));
-        pokemons.add(new Pokemon("Garchomp", 1, 0, 108, 108,130, 102, Set.of(Tipo.DRAGAO, Tipo.TERRA)));
-        pokemons.add(new Pokemon("Salamence", 1, 0, 95, 95,135, 100, Set.of(Tipo.DRAGAO, Tipo.VOADOR)));
-        pokemons.add(new Pokemon("Mewtwo", 1, 0, 106, 106,110, 130, Set.of(Tipo.PSIQUICO)));
+        pokemons.add(new Pokemon("Baltoy", 1, 0, 40, 40, 40, 55, Set.of(Tipo.TERRA, Tipo.PSIQUICO)));
+        pokemons.add(new Pokemon("Swablu", 1, 0, 45, 45, 40, 60, Set.of(Tipo.NORMAL, Tipo.VOADOR)));
+        pokemons.add(new Pokemon("Snubbull", 1, 0, 60, 60, 80, 50, Set.of(Tipo.FADA)));
+        pokemons.add(new Pokemon("Latios", 1, 0, 80, 80, 90, 110, Set.of(Tipo.DRAGAO, Tipo.PSIQUICO)));
+        pokemons.add(new Pokemon("Zapdos", 1, 0, 90, 90, 85, 100, Set.of(Tipo.ELETRICO, Tipo.VOADOR)));
+        pokemons.add(new Pokemon("Mewtwo", 1, 0, 106, 106, 110, 130, Set.of(Tipo.PSIQUICO)));
 
         // pokebola de inicio
         pokebolasJogador.add(new Pokebola("Master Ball", 1.0, 200));
@@ -171,7 +174,7 @@ public class Jogo {
 
         // pocoes para comprar
         // pocoes só podem ser usadas antes de batalhas!
-        pocoesCompra.add(new Pocao("Vida", "Recupera 40% do HP", 35));
+        pocoesCompra.add(new Pocao("Vida", "Recupera 50% do HP", 35));
         pocoesCompra.add(new Pocao("Subir nível", "Aumenta o nível do pokemon\n" +
                 "Essa poção enche a vida do pokémon*", 125));
 

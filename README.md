@@ -1,5 +1,15 @@
 Autores: pedropiasecki, FelipeMatis
 
+Para rodar o código no terminal uutilize os comandos:
+
+Para compilar: 
+
+javac -d out (Get-ChildItem -Recurse -Filter *.java).FullName 
+
+Para executar:
+
+java -cp out app.Main
+
 Funcionalidades do Jogo
 Ao iniciar, você será guiado por uma aventura Pokémon com as seguintes mecânicas:
 

@@ -1,49 +1,67 @@
-Autores: pedropiasecki, FelipeMatis
+**Autores:** pedropiasecki, FelipeMatis
 
-Para rodar o código no terminal utilize os comandos:
+---
 
-Para compilar na pasta src:
+## Sobre o Jogo
 
-javac -d out (Get-ChildItem -Recurse -Filter *.java).FullName 
+Este é um jogo de aventura inspirado em Pokémon. Você é o treinador, escolhe seu Pokémon inicial e enfrenta batalhas enquanto captura novos Pokémon, compra itens na loja e cuida de seu time.
 
-Para executar:
+---
 
+## Como Rodar
+
+### Compilação
+
+Para compilar os arquivos `.java` localizados na pasta `src`, execute o seguinte comando no terminal:
+
+```bash
+javac -d out (Get-ChildItem -Recurse -Filter *.java).FullName
+```
+
+### Execução
+
+Após a compilação, execute o programa com:
+
+```bash
 java -cp out jogo.Main
+```
 
-Funcionalidades do Jogo
-Ao iniciar, você será guiado por uma aventura Pokémon com as seguintes mecânicas:
+---
 
-Escolha do Treinador e Pokémon Inicial:
+## Funcionalidades do Jogo
 
-Defina seu nome de treinador.
-Selecione seu Pokémon inicial e visualize seus atributos e tipagem.
+### Escolha do Treinador e Pokémon Inicial
 
-Menu Principal:
+- Defina o nome do seu treinador.
+- Escolha seu Pokémon inicial, visualizando seus atributos e tipos.
 
-A partir daqui, você terá acesso às principais ações do jogo.
-Batalhas:
+### Menu Principal
 
-Enfrente Pokémon inimigos em um sistema de turnos.
-Ao enfraquecer um adversário, você terá a opção de capturá-lo.
-Captura bem-sucedida: Ganhe 75 moedas.
-Captura recusada ou derrota do inimigo: Receba níveis de experiência e 50 moedas.
-Pokémon capturados podem ser adicionados à sua equipe para futuras batalhas.
+A partir do menu principal, você pode acessar as seguintes ações:
 
-Loja:
+- **Batalhas:**
+  - Enfrente Pokémon inimigos em um sistema de turnos.
+  - Ao enfraquecer um adversário, você poderá tentar capturá-lo.
+  - **Captura bem-sucedida:** Ganha moedas.
+  - **Captura recusada ou derrota do inimigo:** Recebe experiência e moedas
+  - Pokémon capturados podem ser adicionados à sua equipe para futuras batalhas.
 
-Compre itens essenciais para sua jornada, como Pokébolas e poções.
-Você será notificado caso não possua moedas suficientes para uma compra.
+- **Loja:**
+  - Compre itens essenciais para sua jornada, como Pokébolas, poções e pokémons.
+  - Caso não tenha moedas suficientes, você será notificado.
 
-Minhas Pokébolas:
+- **Minhas Pokébolas:**
+  - Visualize as Pokébolas em seu inventário e veja se possuem Pokémon dentro.
 
-Visualize as Pokébolas em seu inventário e verifique se elas contêm algum Pokémon.
+- **Minhas Poções:**
+  - Consulte suas poções e escolha qual Pokémon será curado ou aumentando o nível.
 
-Minhas Poções:
+- **Desistir:**
+  - Encerra o programa a qualquer momento.
 
-Consulte suas poções disponíveis e escolha qual Pokémon será curado.
+---
 
-Desistir:
+## Fonte dos Dados dos Pokémon
 
-Encerra o programa a qualquer momento.
-
-Site que pegamos os dados dos pokemons:https://pokemondb.net/pokedex/all 
+Os dados dos Pokémon utilizados no jogo foram obtidos em:
+(https://pokemondb.net/pokedex/all)

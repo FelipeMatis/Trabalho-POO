@@ -1,8 +1,8 @@
 Autores: pedropiasecki, FelipeMatis
 
-Para rodar o código no terminal uutilize os comandos:
+Para rodar o código no terminal utilize os comandos:
 
-Para compilar: 
+Para compilar na pasta src:
 
 javac -d out (Get-ChildItem -Recurse -Filter *.java).FullName 
 

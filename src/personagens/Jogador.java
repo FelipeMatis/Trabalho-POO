@@ -20,7 +20,7 @@ public class Jogador {
         this.pocaoJogador = pocaoJogador;
         this.indicePokemonComVida = 0;
         this.moedas = 0;
-        Relatorio.registrar("Jogador criado: " + nome); // Registro inicial
+        Relatorio.registrar("Jogador criado: " + nome);
     }
 
     public String getNome() {
@@ -71,7 +71,7 @@ public class Jogador {
         int i = 0;
         ArrayList<Pokebola> pokebolasDisponiveis = new ArrayList<>();
 
-        if (pokebolaJogador.size() > 0) { // Alterado para verificar se há alguma pokebola
+        if (pokebolaJogador.size() > 0) {
             for (Pokebola p : pokebolaJogador) {
                 if (p.estaVazia()) {
                     i++;
@@ -123,7 +123,7 @@ public class Jogador {
             }
             return resultado;
 
-        } else { // Se pokebolaJogador estiver vazia desde o início
+        } else {
             System.out.println("Você não tem nenhuma Pokébola!");
             Relatorio.registrar(nome + " não possui nenhuma Pokébola para uso.");
             return false;
@@ -158,11 +158,9 @@ public class Jogador {
     public boolean verificaSePerdeu() {
         for (Pokemon p : pokemonsJogador) {
             if (p.getVida() > 0) {
-                return false; // Encontrou um Pokémon vivo, o jogador NÃO perdeu
+                return false;
             }
         }
-        // REMOVIDOS os registros de relatório daqui.
-        // Eles serão tratados no contexto onde a perda do jogo é realmente decidida.
         return true;
     }
 
@@ -208,11 +206,11 @@ public class Jogador {
         if (pokemonsJogador.isEmpty()) {
             System.out.println("Você não possui pokémons disponíveis para usar a poção!");
             Relatorio.registrar(nome + " não possui Pokémons para usar a poção " + pocaoUsada.getNome() + ".");
-            return; // Sai do método se não houver pokemons
+            return;
         }
 
-        while (true) { // Loop infinito que será quebrado por 'return' ou 'break'
-            if (i < 0 || i >= pokemonsJogador.size()) { // Garante que i esteja dentro dos limites
+        while (true) {
+            if (i < 0 || i >= pokemonsJogador.size()) {
                 System.out.println("Índice de Pokémon inválido. Saindo do menu de Pokémons.");
                 Relatorio.registrar(nome + " encontrou um índice de Pokémon inválido ao usar poção. Saindo.");
                 return;
@@ -277,7 +275,7 @@ public class Jogador {
                     }
                     pocaoJogador.remove(pocaoUsada);
                     Relatorio.registrar(nome + " removeu a poção '" + pocaoUsada.getNome() + "' do inventário após uso.");
-                    return; // Sai do método após usar a poção
+                    return;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
                     Relatorio.registrar(nome + " digitou uma opção inválida ao usar poção: '" + opcao + "'.");

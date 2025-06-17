@@ -8,7 +8,7 @@ javac -d out (Get-ChildItem -Recurse -Filter *.java).FullName
 
 Para executar:
 
-java -cp out app.Main
+java -cp out jogo.Main
 
 Funcionalidades do Jogo
 Ao iniciar, você será guiado por uma aventura Pokémon com as seguintes mecânicas:
